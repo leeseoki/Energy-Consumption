@@ -11,12 +11,23 @@
     </div>
     <div class="collapse navbar-collapse" id="topNavigation">
       <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a href="#">Real Time</a></li>
-        <li><a href="#">Historical</a></li>
+        <li routerLinkActive="active">
+        	<a routerLink="/buildings">Buildings</a>
+        </li>
+        <li routerLinkActive="active">
+        	<a routerLink="/historical">Historical</a>
+        </li>
       </ul>
     </div>
   </div>
 </nav>
+
+<!-- Main -->
+<main class="main-container">
+	<div class="container-fluid">
+		<router-outlet></router-outlet>
+	</div>
+</main>
 
 <!-- Footer -->
 <footer class="container-fluid footer text-center">

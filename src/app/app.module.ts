@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AlertModule } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { AppComponent } from './app.component';
+import { routing, appRoutingProviders } from './app.routing';
 import { HistoricalComponent } from './historical/historical.component';
 import { BuildingListComponent } from './building-list/building-list.component';
 import { BuildingDetailComponent } from './building-detail/building-detail.component';
@@ -21,21 +22,9 @@ import { BuildingDetailComponent } from './building-detail/building-detail.compo
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot([
-      { path: 'buildings/:id', component: BuildingDetailComponent },
-      { path: 'historical', component: HistoricalComponent },
-      {
-        path: 'buildings',
-        component: BuildingListComponent,
-        data: {
-          title: 'Building List'
-        }
-      },
-      { path: '', component: BuildingListComponent },
-      { path: '**', component: BuildingListComponent }
-    ])
+    routing
   ],
-  providers: [],
+  providers: [appRoutingProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
