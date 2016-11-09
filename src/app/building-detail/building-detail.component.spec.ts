@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { RealTimeComponent } from './real-time.component';
+import { BuildingDetailComponent } from './building-detail.component';
 
-describe('RealTimeComponent', () => {
-  let component: RealTimeComponent;
-  let fixture: ComponentFixture<RealTimeComponent>;
+describe('BuildingDetailComponent', () => {
+  let component: BuildingDetailComponent;
+  let fixture: ComponentFixture<BuildingDetailComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RealTimeComponent ]
+      declarations: [ BuildingDetailComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RealTimeComponent);
+    fixture = TestBed.createComponent(BuildingDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
