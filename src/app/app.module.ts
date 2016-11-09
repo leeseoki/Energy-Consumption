@@ -1,13 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { AlertModule } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { AppComponent } from './app.component';
+import { RealTimeComponent } from './real-time/real-time.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RealTimeComponent
   ],
   imports: [
     BrowserModule,
@@ -18,3 +22,6 @@ import { AppComponent } from './app.component';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
+
