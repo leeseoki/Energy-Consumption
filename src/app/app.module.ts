@@ -3,26 +3,26 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { AlertModule } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { AppComponent } from './app.component';
 import { routing, appRoutingProviders } from './app.routing';
-import { HistoricalComponent } from './historical/historical.component';
-import { BuildingListComponent } from './building-list/building-list.component';
-import { BuildingDetailComponent } from './building-detail/building-detail.component';
+
+import { HistoricalModule } from './historical/historical.module';
+import { BuildingListModule } from './building-list/building-list.module';
+import { BuildingDetailModule } from './building-detail/building-detail.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HistoricalComponent,
-    BuildingListComponent,
-    BuildingDetailComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    routing
+    routing,
+    BuildingListModule,
+    BuildingDetailModule,
+    HistoricalModule
   ],
   providers: [appRoutingProviders],
   bootstrap: [AppComponent]
