@@ -1,24 +1,16 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { NgModule }            from '@angular/core';
+import { CommonModule }        from '@angular/common';
+import { FormsModule }         from '@angular/forms';
 
-//import { BuildingsService } from './buildings.service';
-import { HistoricalComponent } from './historical.component';
+import { HistoricalComponent }       from './historical.component';
+
+import { HistoricalRoutingModule }   from './historical.routing.module';
 
 @NgModule({
+  imports: [ CommonModule, FormsModule, HistoricalRoutingModule ],
   declarations: [
-    HistoricalComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule
+  	HistoricalComponent
   ]
-  //providers: [BuildingsService]
 })
 export class HistoricalModule { }
-
-
 
