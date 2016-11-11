@@ -25,7 +25,7 @@ export class BuildingDetailComponent implements OnInit {
     private buildingService: BuildingService) { }
 
   ngOnInit() {
-    let id = parseInt(this.route.snapshot.params['id'], 10);
-    this.buildingService.getBuilding(id).then(building => this.building = building);
+    //let id = parseInt(this.route.snapshot.params['id'], 10);
+    //this.buildingService.getBuilding(id).then(building => this.building = building);
   }
 }

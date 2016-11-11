@@ -1,0 +1,26 @@
+<div class="table-responsive">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Electric</th>
+				<th>Ga</th>
+				<th></th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr *ngFor="let building of buildings">
+				<td>{{building.fields.id}}</td>
+				<td>{{building.fields.name}}</td>
+				<td *ngFor="let entity of building.data">
+					{{entity.actual}}
+				</td>
+				<td>detail</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<p class="error" *ngIf="errorMessage">{{errorMessage}}</p>

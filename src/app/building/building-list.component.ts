@@ -4,18 +4,26 @@ import { Building,
          BuildingService } from './building.service';
 
 @Component({
-  template: `
-    <h3 highlight>Building List</h3>
-    <div *ngFor='let building of buildings | async'>
-      <a routerLink="{{building.id}}">{{building.id}} - {{building.name}}</a>
-    </div>
-  `
+  selector: 'building-list',
+  templateUrl: 'building-list.component.html',
+  providers: [ BuildingService ],
+  styles: ['.error {color:red;}']
 })
+
 export class BuildingListComponent implements OnInit {
-  buildings: Promise<Building[]>;
+  errorMessage: string;
+  buildings: Building[];
+  mode = 'Observable';
+
   constructor(private buildingService: BuildingService) { }
 
   ngOnInit() {
-    this.buildings = this.buildingService.getBuildings();
+    this.getBuildings();  }
+
+   getBuildings() {
+    this.buildingService.getBuildings()
+                     .subscribe(
+                       buildings => this.buildings = buildings,
+                       error =>  this.errorMessage = <any>error);
   }
 }

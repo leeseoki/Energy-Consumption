@@ -3,8 +3,9 @@ import { BuildingService } from './building.service';
 
 @Component({
   selector: 'app-building',
-  templateUrl: './building.component.html',
-  styleUrls: ['./building.component.css'],
+  template: `
+    <router-outlet></router-outlet>
+  `,
   providers: [ BuildingService ]
 })
 export class BuildingComponent implements OnInit {
