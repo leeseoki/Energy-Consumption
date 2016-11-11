@@ -8,9 +8,9 @@ import { Building,
   template: `
     <h3 highlight>Building Detail</h3>
     <div *ngIf="building">
-      <div>Id: {{building.id}}</div><br>
+      <div>Id: {{building}}</div><br>
       <label>Name:
-        <input [(ngModel)]="building.name">
+        <input [(ngModel)]="building.field.name">
       </label>
     </div>
     <br>
@@ -25,7 +25,7 @@ export class BuildingDetailComponent implements OnInit {
     private buildingService: BuildingService) { }
 
   ngOnInit() {
-    //let id = parseInt(this.route.snapshot.params['id'], 10);
-    //this.buildingService.getBuilding(id).then(building => this.building = building);
+    let id = parseInt(this.route.snapshot.params['id'], 10);
+    this.buildingService.getBuilding(id).map(building => this.building = building);
   }
 }

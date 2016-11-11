@@ -17,7 +17,7 @@
 				<td *ngFor="let entity of building.data">
 					{{entity.actual}}
 				</td>
-				<td>detail</td>
+				<td><a routerLink="{{building.fields.id}}">detail</a></td>
 			</tr>
 		</tbody>
 	</table>
