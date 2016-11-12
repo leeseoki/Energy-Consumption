@@ -3,21 +3,34 @@ import { Http, Response, Headers } from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import { Configuration } from '../app.constants';
 
+
 export class Building {
   constructor(public id: number, public name: string) { }
 }
 
 @Injectable()
 export class BuildingService {
-  private actionUrl: string;
+  private baseUrl: string;
   private headers: Headers;
+  private buildingID: string;
+  private entityID: string;
+  private interval: string;
+  private startDate: Date;
+  private endDate: Date;
+  private param: string;
 
   constructor (private http: Http ) {
-    this.actionUrl = 'http://129.125.84.138:8099/sensor-data-rest/';
+    this.baseUrl = 'http://129.125.84.138:8099/sensor-data-rest/';
+    this.buildingID = '0';
+    this.entityID = 'all';
+    this.interval = '0';
+    this.param = 'consumption?';
+    this.startDate = new Date();
+    this.endDate = new Date();
   }
 
   getBuildings (): Observable<Building[]> {
-    var response =  this.http.get('http://129.125.84.138:8099/sensor-data-rest/0/all/0/consumption?start=2016-11-01T23:00:00.000Z&end=2016-11-02T22:59:59.999Z')
+    var response =  this.http.get(this.baseUrl + this.buildingID + '/' + this.entityID + '/' + this.interval + '/' + this.param + 'start=' + this.startDate.toISOString() + '&end=' + this.endDate.toISOString())
                     .map((res:Response) => res.json().buildings)
                     .catch(this.handleError);
     return response;
