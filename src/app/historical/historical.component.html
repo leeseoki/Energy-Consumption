@@ -17,6 +17,9 @@
 <div class="page-header">
 	<h2> Historical </h2>
 </div>
+
+<chart [options]="options"></chart>
+
 <div class="building" *ngFor="let building of buildings">
 	<h3>{{building.fields.name}}</h3>
 	<div class="table-responsive" *ngFor="let entity of building.data">		

@@ -16,7 +16,7 @@ export class HistoricalComponent implements OnInit {
   errorMessage: string;
   buildings: Building[];
   mode = 'Observable';
-
+  options: Object;
 
   private date;
   private buildingID: string;
@@ -25,7 +25,7 @@ export class HistoricalComponent implements OnInit {
   private startDate: Date;
   private endDate: Date;
   private paramText: string;
-
+  private actuals: Array<number>;
 
   constructor(private buildingService: BuildingService, private formBuilder: FormBuilder) { 
     this.buildingID = '0';
@@ -35,30 +35,27 @@ export class HistoricalComponent implements OnInit {
     this.startDate = new Date();
     this.endDate = new Date();
   }
+  
 
   
 
   ngOnInit() {
-    //this.getBuildings();  
-  }
-
-  getBuildings() {
-    this.buildingService.getBuildings(this.buildingID, this.entityID, this.interval, this.paramText, this.startDate, this.endDate)
-                     .subscribe(
-                       buildings => this.buildings = buildings,
-                       error =>  this.errorMessage = <any>error);
   }
 
   onSubmit(data: any, event: Event): void {  
-    //console.log(JSON.stringify(data.startdate));
     data.startdate.setHours(0,0,0,0);
     this.buildingService.getBuildings(this.buildingID, this.entityID, this.interval, this.paramText, data.startdate, data.enddate)
                      		.subscribe(
                        		buildings => this.buildings = buildings,
-                       		error =>  this.errorMessage = <any>error);
+                       		error =>  this.errorMessage = <any>error);              			
+ 		this.options = {
+			type : 'line',
+	    title : { text : 'simple chart' },
+	    series: [{
+	        data: this.actuals,
+	    }]
+		};   
  		event.preventDefault();
- 		console.log(data.startdate);
- 		console.log(data.enddate);
   }
 
 }

@@ -5,7 +5,15 @@ import { Configuration } from '../app.constants';
 
 
 export class Building {
-  constructor(public id: number, public name: string) { }
+  constructor(public fields: Object[], public data: Data[]) { }
+}
+
+export class Data {
+  constructor(public entity: string, public metric: string, public entries: Entry[]) { }
+}
+
+export class Entry {
+  constructor(public timestamp: string, public actual: number, public expectedMin: number, public expectedMax: number, public co2: number) { }
 }
 
 @Injectable()
