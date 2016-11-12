@@ -1,3 +1,6 @@
+<div class="page-header">
+	<h2> The energy consumption in {{date | date:'yyyy-MM-dd'}}</h2>
+</div>
 <div class="table-responsive">
 	<table class="table">
 		<thead>
@@ -6,7 +9,7 @@
 				<th>Name</th>
 				<th>Electric</th>
 				<th>Ga</th>
-				<th></th>
+				<th class="text-center">Details</th>
 			</tr>
 		</thead>
 		
@@ -15,9 +18,13 @@
 				<td>{{building.fields.id}}</td>
 				<td>{{building.fields.name}}</td>
 				<td *ngFor="let entity of building.data">
-					{{entity.actual}}
+					{{entity.actual}} {{entity.metric}}
 				</td>
-				<td><a routerLink="{{building.fields.id}}">detail</a></td>
+				<td class="text-center">
+					<a class="link-detail" routerLink="{{building.fields.id}}" title="{{building.fields.name}}">
+						<i class="fa fa-file-text-o" fa-2x aria-hidden="true"></i>
+					</a>
+				</td>
 			</tr>
 		</tbody>
 	</table>
