@@ -1,4 +1,39 @@
-<p>
-  historical works!
-</p>
-<router-outlet></router-outlet>
+<div class="container">
+	<form (ngSubmit)="onSubmit(dateForm.value, $event)" #dateForm="ngForm">
+		<div class="form-group">
+			<label>Start Date</label>
+			<input class="form-control" id="startdateInput" name="startdate" [(ngModel)]="startdate" datetime-picker date-only="true" ngModel />
+		</div>
+		<div class="form-group">
+			<label>End Date</label>
+			<input class="form-control" id="enddateInput" name="enddate" [(ngModel)]="enddate" datetime-picker date-only="true" ngModel />
+		</div>
+		<div class="form-group form-action text-center">
+					<button class="btn btn-primary">submit</button>
+				</div>
+	</form>
+</div>
+
+<div class="page-header">
+	<h2> Historical </h2>
+</div>
+<div class="building" *ngFor="let building of buildings">
+	<h3>{{building.fields.name}}</h3>
+	<div class="table-responsive" *ngFor="let entity of building.data">		
+		<h4>{{entity.entity}}</h4>
+		<table class="table">	
+			<tr *ngFor="let entry of entity.entries">
+				<td>{{entry.timestamp}}</td>
+				<td>{{entry.actual}}</td>
+				<td>{{entry.expectedMin}}</td>
+				<td>{{entry.expectedMax}}</td>
+				<td>{{entry.co2}}</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+
+<p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
+
+
