@@ -19,6 +19,8 @@ export class HistoricalComponent implements OnInit {
   mode = 'Observable';
   buildingChartOptions: Object[];
   options: Object[];
+  dateForm : FormGroup;
+  message: string;
   
 
   private date;
@@ -38,72 +40,79 @@ export class HistoricalComponent implements OnInit {
     this.paramText = 'consumption?';
     this.startDate = new Date();
     this.endDate = new Date();
+    this.dateForm = formBuilder.group({
+      'startdate' : [null, Validators.required],
+      'enddate' : [null, Validators.required]
+    })
   }
   
   ngOnInit() {
   }
 
   onSubmit( data: any, event: Event ): void {  
-    data.startdate.setHours(0,0,0,0);
-    this.buildingService.getBuildings( this.buildingID, this.entityID, this.interval, this.paramText, data.startdate, data.enddate )
-                     		.subscribe(
-                     			response => {
-											      this.buildings = response;
-											      
-											      var buildingChartOptionsIndex = 0;
-												    this.buildingChartOptions = new Array<Object>();
-												    
-												    for (var i = 0; i < this.buildings.length; i++) {
-												    	var optionIndex = 0;
-                       				this.options = new Array<Object>();
+    if ( data.enddate < data.startdate ) {
+    	this.message = "Please choose end date greater than start date."
+    } else {
+    	data.startdate.setHours(0,0,0,0);
+    	this.buildingService.getBuildings( this.buildingID, this.entityID, this.interval, this.paramText, data.startdate, data.enddate )
+	                     		.subscribe(
+	                     			response => {
+												      this.buildings = response;
 												      
-												      for(var j = 0; j < this.buildings[i].data.length; j++) {
-												      	this.actuals = new Array<number>();
-												      	this.timestamps = new Array<string>();
-												      	var index = 0;
-												      	for( var k = 0; k < this.buildings[i].data[j].entries.length; k++) {
-												      		this.actuals[index] = this.buildings[i].data[j].entries[k].actual;
-												      		this.timestamps[index] = this.buildings[i].data[j].entries[k].timestamp;
-												      		index ++;
-												      	}
-												      	var startYear = Number(this.timestamps[0].substring(0, 4));
-												      	var startMonth = Number(this.timestamps[0].substring(5, 7)) - 1;
-												      	var startDate = Number(this.timestamps[0].substring(8, 10));
-												      	var chartTitle = this.buildings[i].fields['name'] +'-'+ this.buildings[i].data[j].entity;
-												      	this.options[optionIndex] = {
-																	type : 'line',
-															    title : { text : chartTitle },
-															    xAxis: {
-												            //categories: this.timestamps,
-												            type: 'datetime',
-												            dateTimeLabelFormats: {
-																		  day: '%Y-%m-%d'
-																		},
-																		labels: {
-																		  rotation: 45
-																		}
-													        },
-													        yAxis: {
-												            title: {
-												                text: this.buildings[i].data[j].metric
-												            }
-													        },
-															    series: [{
-															    		name: this.buildings[i].data[j].entity,
-															        data: this.actuals,
-															        pointStart: Date.UTC(startYear, startMonth, startDate),
-            													pointInterval: 24 * 3600 * 1000 // one day
-															    }]
-																}; 
-																optionIndex ++;
-												      }
-												      this.buildingChartOptions[buildingChartOptionsIndex] = this.options;
-												      buildingChartOptionsIndex ++;
-												    }
-											    },
-                       		error =>  this.errorMessage = <any>error
-                       	);
-
+												      var buildingChartOptionsIndex = 0;
+													    this.buildingChartOptions = new Array<Object>();
+													    
+													    for (var i = 0; i < this.buildings.length; i++) {
+													    	var optionIndex = 0;
+	                       				this.options = new Array<Object>();
+													      
+													      for(var j = 0; j < this.buildings[i].data.length; j++) {
+													      	this.actuals = new Array<number>();
+													      	this.timestamps = new Array<string>();
+													      	var index = 0;
+													      	for( var k = 0; k < this.buildings[i].data[j].entries.length; k++) {
+													      		this.actuals[index] = this.buildings[i].data[j].entries[k].actual;
+													      		this.timestamps[index] = this.buildings[i].data[j].entries[k].timestamp;
+													      		index ++;
+													      	}
+													      	var startYear = Number(this.timestamps[0].substring(0, 4));
+													      	var startMonth = Number(this.timestamps[0].substring(5, 7)) - 1;
+													      	var startDate = Number(this.timestamps[0].substring(8, 10));
+													      	var chartTitle = this.buildings[i].fields['name'] +'-'+ this.buildings[i].data[j].entity;
+													      	this.options[optionIndex] = {
+																		type : 'line',
+																    title : { text : chartTitle },
+																    xAxis: {
+													            //categories: this.timestamps,
+													            type: 'datetime',
+													            dateTimeLabelFormats: {
+																			  day: '%Y-%m-%d'
+																			},
+																			labels: {
+																			  rotation: 45
+																			}
+														        },
+														        yAxis: {
+													            title: {
+													                text: this.buildings[i].data[j].metric
+													            }
+														        },
+																    series: [{
+																    		name: this.buildings[i].data[j].entity,
+																        data: this.actuals,
+																        pointStart: Date.UTC(startYear, startMonth, startDate),
+	            													pointInterval: 24 * 3600 * 1000 // one day
+																    }]
+																	}; 
+																	optionIndex ++;
+													      }
+													      this.buildingChartOptions[buildingChartOptionsIndex] = this.options;
+													      buildingChartOptionsIndex ++;
+													    }
+												    },
+	                       		error =>  this.errorMessage = <any>error
+	                       	);
+    }
  		event.preventDefault();
   }
 
