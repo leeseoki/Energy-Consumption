@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Ng2Highcharts } from 'ng2-highcharts';
 
 import { Building,
          BuildingService } from '../building/building.service';
@@ -30,7 +31,7 @@ export class HistoricalComponent implements OnInit {
   private actuals: Array<number>;
   private timestamps: Array<string>;
 
-  constructor(private buildingService: BuildingService, private formBuilder: FormBuilder) { 
+  constructor( private buildingService: BuildingService, private formBuilder: FormBuilder ) { 
     this.buildingID = '0';
     this.entityID = 'all';
     this.interval = '86400';
@@ -42,9 +43,9 @@ export class HistoricalComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSubmit(data: any, event: Event): void {  
+  onSubmit( data: any, event: Event ): void {  
     data.startdate.setHours(0,0,0,0);
-    this.buildingService.getBuildings(this.buildingID, this.entityID, this.interval, this.paramText, data.startdate, data.enddate)
+    this.buildingService.getBuildings( this.buildingID, this.entityID, this.interval, this.paramText, data.startdate, data.enddate )
                      		.subscribe(
                      			response => {
 											      this.buildings = response;
@@ -65,16 +66,22 @@ export class HistoricalComponent implements OnInit {
 												      		this.timestamps[index] = this.buildings[i].data[j].entries[k].timestamp;
 												      		index ++;
 												      	}
+												      	var startYear = Number(this.timestamps[0].substring(0, 4));
+												      	var startMonth = Number(this.timestamps[0].substring(5, 7)) - 1;
+												      	var startDate = Number(this.timestamps[0].substring(8, 10));
 												      	var chartTitle = this.buildings[i].fields['name'] +'-'+ this.buildings[i].data[j].entity;
 												      	this.options[optionIndex] = {
 																	type : 'line',
 															    title : { text : chartTitle },
 															    xAxis: {
-												            categories: this.timestamps,
+												            //categories: this.timestamps,
 												            type: 'datetime',
 												            dateTimeLabelFormats: {
-												              day: '%e of %b'
-												            }
+																		  day: '%Y-%m-%d'
+																		},
+																		labels: {
+																		  rotation: 45
+																		}
 													        },
 													        yAxis: {
 												            title: {
@@ -83,7 +90,9 @@ export class HistoricalComponent implements OnInit {
 													        },
 															    series: [{
 															    		name: this.buildings[i].data[j].entity,
-															        data: this.actuals
+															        data: this.actuals,
+															        pointStart: Date.UTC(startYear, startMonth, startDate),
+            													pointInterval: 24 * 3600 * 1000 // one day
 															    }]
 																}; 
 																optionIndex ++;
@@ -91,9 +100,6 @@ export class HistoricalComponent implements OnInit {
 												      this.buildingChartOptions[buildingChartOptionsIndex] = this.options;
 												      buildingChartOptionsIndex ++;
 												    }
- 
-												     console.log(this.options);
-												     console.log(this.buildingChartOptions);
 											    },
                        		error =>  this.errorMessage = <any>error
                        	);
