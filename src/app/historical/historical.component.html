@@ -1,12 +1,24 @@
-<div class="container">
+<div class="period">
 	<form (ngSubmit)="onSubmit(dateForm.value, $event)" #dateForm="ngForm">
-		<div class="form-group">
-			<label>Start Date</label>
-			<input class="form-control" id="startdateInput" name="startdate" [(ngModel)]="startdate" datetime-picker date-only="true" ngModel />
-		</div>
-		<div class="form-group">
-			<label>End Date</label>
-			<input class="form-control" id="enddateInput" name="enddate" [(ngModel)]="enddate" datetime-picker date-only="true" ngModel />
+		<div class="row" id="datePickerContent">
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label>Start Date</label>
+					<div class="input-group">
+					  <input class="form-control" id="startdateInput" name="startdate" [(ngModel)]="startdate" datetime-picker date-only="true" ngModel />
+					  <span class="input-group-addon" id="basic-addon2"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label>End Date</label>
+					<div class="input-group">
+					  <input class="form-control" id="enddateInput" name="enddate" [(ngModel)]="enddate" datetime-picker date-only="true" ngModel />
+					  <span class="input-group-addon" id="basic-addon2"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="form-group form-action text-center">
 					<button class="btn btn-primary">submit</button>
