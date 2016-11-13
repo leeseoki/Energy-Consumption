@@ -5,8 +5,12 @@ import { Configuration } from '../app.constants';
 
 
 export class Building {
-  constructor(public fields: Object[], public data: Data[]) { }
+  constructor(public fields: Object, public data: Data[]) { }
 }
+
+// export class Fields {
+//   constructor(public postal: string, public city: string, public name: string, public img: string, public id: number, public address: string) { }
+// }
 
 export class Data {
   constructor(public entity: string, public metric: string, public entries: Entry[]) { }
@@ -28,8 +32,7 @@ export class BuildingService {
   getBuildings ( buildingID, entityID, interval, paramText, startDate, endDate ): Observable<Building[]> {
     startDate = new Date(startDate);
     endDate = new Date(endDate);
-    //console.log(startDate.toISOString());
-    //console.log(endDate.toISOString());
+
     var response =  this.http.get(this.baseUrl + buildingID + '/' + entityID + '/' + interval + '/' + paramText + 'start=' + startDate.toISOString() + '&end=' + endDate.toISOString())
                     .map((res:Response) => res.json().buildings)
                     .catch(this.handleError);
