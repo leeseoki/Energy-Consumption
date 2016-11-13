@@ -18,7 +18,16 @@ a:hover {
 	border-color: #4CAF50;
 }
 .btn-primary:focus,
-.btn-primary:hover {
+.btn-primary:hover,
+.btn-primary.disabled:hover, 
+.btn-primary[disabled]:hover, 
+fieldset[disabled] .btn-primary:hover, 
+.btn-primary.disabled:focus, 
+.btn-primary[disabled]:focus, 
+fieldset[disabled] .btn-primary:focus, 
+.btn-primary.disabled.focus, 
+.btn-primary[disabled].focus, 
+fieldset[disabled] .btn-primary.focus {
 	background-color: #3a8a3e;
 	border-color: #3a8a3e;	
 }
