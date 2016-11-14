@@ -9,7 +9,6 @@
 				<th>Name</th>
 				<th>Electric</th>
 				<th>Ga</th>
-				<th class="text-center">Details</th>
 			</tr>
 		</thead>
 		
@@ -19,11 +18,6 @@
 				<td>{{building.fields.name}}</td>
 				<td *ngFor="let entity of building.data">
 					{{entity.actual}} {{entity.metric}}
-				</td>
-				<td class="text-center">
-					<a class="link-detail" routerLink="{{building.fields.id}}" title="{{building.fields.name}}">
-						<i class="fa fa-file-text-o" fa-2x aria-hidden="true"></i>
-					</a>
 				</td>
 			</tr>
 		</tbody>
