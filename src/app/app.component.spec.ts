@@ -1,4 +1,6 @@
 /* tslint:disable:no-unused-variable */
+import { Routes, RouterModule } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
